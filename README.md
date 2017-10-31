@@ -55,6 +55,8 @@
 
 ## Install
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/env.svg)](https://greenkeeper.io/)
+
 ```sh
 $ npm install @tiaanduplessis/env
 # OR
