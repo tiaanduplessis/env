@@ -13,7 +13,6 @@ function parseFile (filePath) {
 }
 
 function env (filename = '.env', otherProps = {}) {
-
   const filePath = path.resolve(process.cwd(), filename)
 
   if (!fs.existsSync(filePath)) {
