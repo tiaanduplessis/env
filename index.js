@@ -13,9 +13,6 @@ function parseFile (filePath) {
 }
 
 function env (filename = '.env', otherProps = {}) {
-  if (process.env.ENV_FLAG) {
-    return
-  }
 
   const filePath = path.resolve(process.cwd(), filename)
 
@@ -26,7 +23,7 @@ function env (filename = '.env', otherProps = {}) {
   const props = Object.assign(process.env, otherProps, parseFile(filePath))
 
   return {
-    get: (key = '') => props[key.toUpperCase()] || false,
+    get: (key = '', def) => props[key.toUpperCase()] || def || false,
     set: (key = '', value = '', overwrite = false) => {
       if (!props[key.toUpperCase()]) {
         props[key.toUpperCase()] = value
