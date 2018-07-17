@@ -1,7 +1,7 @@
 {
     "name": "@tiaanduplessis/env",
     "version": "1.1.0",
-    "description": "Get access to your .env configuration",
+    "description": "Get access to your environment configuration",
     "license": "MIT",
     "repository": {
         "url": "https://github.com/tiaanduplessis/env",
@@ -15,16 +15,16 @@
     ],
     "scripts": {
         "test": "jest",
-        "format": "prettier-standard index.js",
-        "start": "npm run test",
-        "precommit": "npm test",
-        "pretest": "npm run format",
-        "publish": "npm publish --access=public"
+        "lint": "standard --fix"
     },
-    "author": "tiaanduplessis <tiaanduplessis@hotmail.com>",
+    "author": "Tiaan du Plessis",
     "devDependencies": {
-        "jest": "^22.4.3",
-        "husky": "^0.14.3",
-        "prettier-standard": "^8.0.0"
+        "jest": "^23.4.1",
+        "standard": "^11.0.1"
+    },
+    "standard": {
+        "env": {
+            "jest": true
+        }
     }
 }
