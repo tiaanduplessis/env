@@ -3,23 +3,25 @@
 const fs = require('fs')
 const path = require('path')
 
-function parseFile (filePath) {
+function getKeysFromFile (filePath) {
   const content = fs.readFileSync(filePath, 'utf-8')
-  return content.split('\n').reduce((acc, cur) => {
-    const [key = 'INVALID_KEY', value = ''] = cur.split('=')
-    acc[key.toUpperCase()] = value
-    return acc
-  }, {})
+  return content.split('\n').reduce(parseFile, {})
 }
 
-function env (filename = '.env', otherProps = {}) {
+function parseFile (acc, cur, index) {
+  const [key = `INVALID_KEY_${index}`, value = ''] = cur.split('=')
+  acc[key.toUpperCase()] = value
+  return acc
+}
+
+function env (filename = '.env', otherKeys = {}) {
   const filePath = path.resolve(process.cwd(), filename)
 
   if (!fs.existsSync(filePath)) {
     return
   }
 
-  const props = Object.assign(process.env, otherProps, parseFile(filePath))
+  const props = Object.assign(process.env, otherKeys, getKeysFromFile(filePath))
 
   return {
     get: (key = '', def) => props[key.toUpperCase()] || def || false,
