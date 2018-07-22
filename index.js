@@ -24,15 +24,24 @@ function env (filename = '.env', otherKeys = {}) {
   const props = Object.assign(process.env, otherKeys, getKeysFromFile(filePath))
 
   return {
-    get: (key = '', def) => props[key.toUpperCase()] || def || false,
+    get: (keys = '', def) => {
+      const getByKey = key => props[key.toUpperCase()] || def || false
+
+      if (Array.isArray(keys)) {
+        return keys.map(getByKey)
+      }
+
+      return getByKey(keys)
+    },
     set: (key = '', value = '', overwrite = false) => {
-      if (!props[key.toUpperCase()]) {
-        props[key.toUpperCase()] = value
-        process.env[key.toUpperCase()] = value
+      key = key.toUpperCase()
+      if (!props[key]) {
+        props[key] = value
+        process.env[key] = value
         return true
       } else if (overwrite) {
-        props[key.toUpperCase()] = value
-        process.env[key.toUpperCase()] = value
+        props[key] = value
+        process.env[key] = value
         return true
       }
 
