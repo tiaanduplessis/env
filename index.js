@@ -21,7 +21,7 @@ function env (filename = '.env', otherKeys = {}) {
     return
   }
 
-  const props = Object.assign(process.env, otherKeys, getKeysFromFile(filePath))
+  const props = Object.assign({}, otherKeys, getKeysFromFile(filePath), process.env)
 
   return {
     get: (keys = '', def) => {
